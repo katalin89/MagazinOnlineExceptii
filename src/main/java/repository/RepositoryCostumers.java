@@ -6,6 +6,7 @@ import model.Client;
 import model.Costumer;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,13 +37,12 @@ public class RepositoryCostumers extends Repository {
         executeStatement(sterge);
     }
 
-    public Client getClientById(int id) {
+    public Client getClientById(int id) throws  CustomerNotFoundException {
         String login = String.format("select * from costumers where id = %d", id);
         executeStatement(login);
         try {
             ResultSet result = statement.getResultSet();
-            if (result != null) {
-                result.next();
+            if (result.next()) {
                 return new Client(result.getInt(1),
                         result.getString(2),
                         result.getString(3),
@@ -54,7 +54,7 @@ public class RepositoryCostumers extends Repository {
             } else {
                 throw new CustomerNotFoundException("Client-ul cu id-ul:" + id + "nu a fost gasit");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Nu s-a executat schita");
             return null;
         }

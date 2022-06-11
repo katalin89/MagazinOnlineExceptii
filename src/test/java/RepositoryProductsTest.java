@@ -1,3 +1,4 @@
+import exeption.ProductNotFoundException;
 import model.Administrator;
 import model.Client;
 import model.Cosmetice;
@@ -36,7 +37,7 @@ public class RepositoryProductsTest {
     }
 
     @Test
-    public void getTelevizorById() {
+    public void getTelevizorById() throws ProductNotFoundException {
         Televizor televizor = repositoryProducts.getTelevizorById(13);
         assert televizor != null;
     }

@@ -33,8 +33,7 @@ public class RepositoryOrders extends Repository{
         executeStatement(login);
         try {
             ResultSet result = statement.getResultSet();
-            if (result != null) {
-                result.next();
+            if ( result.next()) {
                 return new Orders(result.getInt(1),
                         result.getInt(2),
                         result.getInt(3),

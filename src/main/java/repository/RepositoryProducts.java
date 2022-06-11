@@ -4,6 +4,7 @@ import exeption.ProductNotFoundException;
 import model.*;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,13 +62,13 @@ public class RepositoryProducts extends Repository {
         executeStatement(sterge);
     }
 
-    public Televizor getTelevizorById(int id) {
+    public Televizor getTelevizorById(int id) throws  ProductNotFoundException  {
         String login = String.format("select id, name, price, stock, marca_tv, dimensiune, sistem_de_operare from products where id = %d", id);
         executeStatement(login);
         try {
             ResultSet result = statement.getResultSet();
-            if (result != null) {
-                result.next();
+            if ( result.next()) {
+
                 return new Televizor(result.getInt(1),
                         result.getString(2),
                         result.getInt(3),
@@ -79,7 +80,7 @@ public class RepositoryProducts extends Repository {
             } else {
                 throw new ProductNotFoundException("Televizorul cu id-ul:" + id +"nu a fost gasit");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Nu s-a executat schita");
             return null;
         }

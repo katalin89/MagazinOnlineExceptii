@@ -1,9 +1,13 @@
+import exeption.CustomerNotFoundException;
 import model.Administrator;
 import model.Client;
+import model.Costumer;
 import org.junit.Test;
 import repository.RepositoryCostumers;
 
 import java.util.List;
+
+import static org.junit.Assert.assertThrows;
 
 public class RepositoryCostumersTest {
 
@@ -34,10 +38,16 @@ public class RepositoryCostumersTest {
     }
 
     @Test
-    public void getClientById(){
-        Client client = repositoryCostumers.getClientById(1);
-        assert client != null;
+    public void getClientById() throws CustomerNotFoundException {
+        assertThrows(CustomerNotFoundException.class,()->{
+            repositoryCostumers.getClientById(100);
+        });
+
+            repositoryCostumers.getClientById(1);
+
     }
+        //assert client != null;
+
 
     @Test
     public void udateCategorieAdministrator(){
