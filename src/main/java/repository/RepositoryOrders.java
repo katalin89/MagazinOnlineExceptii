@@ -1,5 +1,6 @@
 package repository;
 
+import exeption.OrderNorFoundException;
 import model.Administrator;
 import model.Client;
 import model.Orders;
@@ -16,7 +17,6 @@ public class RepositoryOrders extends Repository{
 
     public void insertOrder(Orders orders) {
         String insertTo = "";
-
         insertTo = ("insert into orders ( costumer_id, ammount, shipping_adress) values  (");
         insertTo += String.format("'%d', '%d', '%s'", orders.getCostumerId(), orders.getAmmount(), orders.getShippingAddress());
         insertTo += ")";
@@ -41,7 +41,7 @@ public class RepositoryOrders extends Repository{
                         result.getString(4));
 
             } else {
-                return null;
+                throw new OrderNorFoundException("Order-ul cu id-ul:" + id + " nu a fost gasit.");
             }
         } catch (Exception e) {
             System.out.println("Nu s-a executat schita");

@@ -1,5 +1,6 @@
 package repository;
 
+import exeption.CustomerNotFoundException;
 import model.Administrator;
 import model.Client;
 import model.Costumer;
@@ -51,7 +52,7 @@ public class RepositoryCostumers extends Repository {
                         result.getInt(7));
 
             } else {
-                return null;
+                throw new CustomerNotFoundException("Client-ul cu id-ul:" + id + "nu a fost gasit");
             }
         } catch (Exception e) {
             System.out.println("Nu s-a executat schita");

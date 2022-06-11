@@ -1,5 +1,6 @@
 package repository;
 
+import exeption.ProductNotFoundException;
 import model.*;
 
 import java.sql.ResultSet;
@@ -76,7 +77,7 @@ public class RepositoryProducts extends Repository {
                         result.getString(7));
 
             } else {
-                return null;
+                throw new ProductNotFoundException("Televizorul cu id-ul:" + id +"nu a fost gasit");
             }
         } catch (Exception e) {
             System.out.println("Nu s-a executat schita");
@@ -100,7 +101,7 @@ public class RepositoryProducts extends Repository {
                         result.getInt(7));
 
             } else {
-                return null;
+                throw new ProductNotFoundException("Cosmetice cu id-ul:" + id +"nu a fost gasit");
             }
         } catch (Exception e) {
             System.out.println("Nu s-a executat schita");
@@ -122,7 +123,7 @@ public class RepositoryProducts extends Repository {
     }
 
     public List<String> getAllTelevizor() {
-        executeStatement("select marca from products where name='televizor'");
+        executeStatement("select marca_tv from products where name='televizor'");
         try {
             ResultSet set = statement.getResultSet();
             ArrayList<String> numeClient = new ArrayList<>();
@@ -135,7 +136,6 @@ public class RepositoryProducts extends Repository {
             return null;
         }
     }
-
 
     public List<String> getAllCosmetice() {
         executeStatement("select full_name from products where name='cosmetice'");

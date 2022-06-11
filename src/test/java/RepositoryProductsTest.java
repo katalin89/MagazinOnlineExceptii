@@ -70,7 +70,7 @@ public class RepositoryProductsTest {
     public void getAllTv() {
         List<String> televizoare = repositoryProducts.getAllTelevizor();
         for (String tel : televizoare) {
-            System.out.println(televizoare);
+            System.out.println(tel);
         }
     }
 }
